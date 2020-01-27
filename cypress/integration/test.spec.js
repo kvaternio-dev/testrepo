@@ -2,7 +2,7 @@
 
 context('Test', () => {
     beforeEach(() => {
-      cy.visit('localhost:8180')
+      cy.visit('localhost:8180/index.html')
     })
   
     it('Do something', () => {
