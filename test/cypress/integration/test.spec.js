@@ -4,5 +4,6 @@ context('Test', () => {
   
     it('Do something', () => {
         cy.log("doing something");
+        cy.matchImageSnapshot();
     })
 })
