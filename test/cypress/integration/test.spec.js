@@ -3,7 +3,7 @@
 context('Test', () => { 
   
     it('Do something', () => {
-        cy.visit("localhost");
+        cy.visit("192.168.0.14");
         cy.log("doing something");
         cy.matchImageSnapshot();
     })
