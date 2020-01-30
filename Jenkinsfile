@@ -1,6 +1,5 @@
 def processTestResults = { id ->
     sh "mv test/cypress/videos videos-${id}"
-    archiveArtifacts "videos-${id}/**"
 }
 
 pipeline {
