@@ -1,5 +1,5 @@
 def processTestResults = { id ->
-    sh "mv ggb/cypress/videos videos-${id}"
+    sh "mv test/cypress/videos videos-${id}"
     archiveArtifacts "videos-${id}/**"
 }
 
