@@ -12,17 +12,5 @@ pipeline {
             }
             post { always { script { processTestResults('build') } } }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-            post { always { script { processTestResults('test') } } }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-            post { always { script { processTestResults('deploy') } } }
-        }
     }
 }
