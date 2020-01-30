@@ -9,6 +9,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                sh '''
+                   npm install
+                   npx cypress run -P test
+                   '''
             }
             post { always { script { processTestResults('build') } } }
         }
