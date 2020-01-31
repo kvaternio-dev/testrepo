@@ -5,7 +5,7 @@ def processTestResults = { id ->
     archiveArtifacts "snapshots-${id}/**"
 }
 
-def snapshotsUrl = "http://localhost:8080/job/CypressPipeline/lastSuccessfulBuild/artifact/videos-build/"
+def snapshotsUrl = "http://192.168.0.14:8080/job/CypressPipeline/lastSuccessfulBuild/artifact/snapshots-build/"
 
 pipeline {
     agent any
