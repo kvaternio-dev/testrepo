@@ -13,11 +13,11 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh '''
+                sh """
                    npm install
                    wget ${snapshotsUrl} test/cypress/temp
                    npx cypress run -P test
-                   '''
+                   """
             }
             post { always { script { processTestResults('build') } } }
         }
