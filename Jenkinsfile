@@ -13,11 +13,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh """
-                   npm install
-                   wget ${snapshotsUrl} test/cypress/temp
-                   npx cypress run -P test
-                   """
+                sh "npm install"
+                sh "wget ${snapshotsUrl} test/cypress/temp"
+                sh "npx cypress run -P test"
             }
             post { always { script { processTestResults('build') } } }
         }
