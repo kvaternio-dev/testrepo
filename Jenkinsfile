@@ -14,7 +14,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh "npm install"
-                sh "wget ${snapshotsUrl} test/cypress/temp"
+                sh "wget ${snapshotsUrl} test/cypress/temp || true"
                 sh "npx cypress run -P test"
             }
             post { always { script { processTestResults('build') } } }
