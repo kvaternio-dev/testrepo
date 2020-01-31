@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                echo ${env.JENKINS_HOME}
+                echo "${env.JENKINS_HOME}"
                 sh "npm install"
                 sh "wget ${snapshotsUrl} test/cypress/temp || true"
                 sh "npx cypress run -P test"
