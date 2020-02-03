@@ -15,6 +15,11 @@ pipeline {
                 echo 'Building..'
                 echo "${env.JENKINS_URL}"
                 sh "npm install"
+                script{
+                    step ([$class: 'CopyArtifact',
+                    projectName: 'CypressPipeline',
+                    target: 'copyTarget']);
+                }
                 sh "wget ${snapshotsUrl} test/cypress/temp || true"
                 sh "npx cypress run -P test"
             }
