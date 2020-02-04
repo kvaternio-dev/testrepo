@@ -18,8 +18,25 @@ pipeline {
                 script{
                     step ([$class: 'CopyArtifact',
                     projectName: 'CypressPipeline',
-                    filter: 'snapshots-build/*',
                     target: 'copyTarget']);
+                }
+                script{
+                    step ([$class: 'CopyArtifact',
+                    projectName: 'CypressPipeline',
+                    filter: 'snapshots-build',
+                    target: 'copyTarget1']);
+                }
+                script{
+                    step ([$class: 'CopyArtifact',
+                    projectName: 'CypressPipeline',
+                    filter: 'snapshots-build/*.*',
+                    target: 'copyTarget2']);
+                }
+                script{
+                    step ([$class: 'CopyArtifact',
+                    projectName: 'CypressPipeline',
+                    filter: 'snapshots-build/*.png',
+                    target: 'copyTarget3']);
                 }
                 sh "wget ${snapshotsUrl} test/cypress/temp || true"
                 sh "npx cypress run -P test"
