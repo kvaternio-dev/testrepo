@@ -18,6 +18,12 @@ pipeline {
                 script{
                     step ([$class: 'CopyArtifact',
                     projectName: 'CypressPipeline',
+                    filter: 'snapshots-build/snapshots/**',
+                    target: 'copyTarget4']);
+                }
+                script{
+                    step ([$class: 'CopyArtifact',
+                    projectName: 'CypressPipeline',
                     filter: 'snapshots-build/**',
                     target: 'copyTarget1']);
                 }
