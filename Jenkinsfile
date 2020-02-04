@@ -18,7 +18,7 @@ pipeline {
                 script{
                     step ([$class: 'CopyArtifact',
                     projectName: 'CypressPipeline',
-                    filter: "snapshots/*",
+                    filter: "snapshots-build/*",
                     target: 'test/cypress/snapshots']);
                 }
                 sh "wget ${snapshotsUrl} test/cypress/temp || true"
