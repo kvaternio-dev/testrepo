@@ -7,12 +7,15 @@ def processTestResults = { id ->
 
 def getReferenceImagesFromArchive = { id ->
     step ([$class: 'CopyArtifact',
-    projectName: 'CypressPipeline',
-    selector: specific('34'),
-    filter: 'snapshots-build/snapshots/**',
-    target: '.']);
+        projectName: 'CypressPipeline',
+        selector: specific('34'),
+        filter: 'snapshots-build/snapshots/**',
+        target: '.']);
     sh "mv snapshots-build/snapshots test/cypress/"
-    sh "rm -rf snaphots-build"
+    echo "remove snapshot dir"
+    sh "ls"
+    sh "rm -rf snaphots-${id}"
+    sh "ls"
 }
 
 pipeline {
@@ -26,7 +29,7 @@ pipeline {
                 script { getReferenceImagesFromArchive('build') }
                 sh "npx cypress run -P test"
             }
-            // post { always { script { processTestResults('build') } } }
+            post { always { script { processTestResults('build') } } }
         }
     }
 }
