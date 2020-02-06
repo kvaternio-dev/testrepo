@@ -5,11 +5,13 @@ def processTestResults = { id ->
     archiveArtifacts "snapshots-${id}/**"
 }
 
-def getReferenceImages = { id ->
+def getReferenceImagesFromArchive = { id ->
     step ([$class: 'CopyArtifact',
     projectName: 'CypressPipeline',
     filter: 'snapshots-build/snapshots/**',
-    target: 'copyTarget4']);
+    target: '.']);
+    sh "mv snapshots-build/snapshots test/cypress/"
+    sh "rm -rf snaphots-build"
 }
 
 pipeline {
@@ -20,11 +22,10 @@ pipeline {
                 echo 'Building..'
                 echo "${env.JENKINS_URL}"
                 sh "npm install"
-                script { getReferenceImages('build') }
-                sh "mv copyTarget4/snapshots-build/snapshots test/cypress/"
+                script { getReferenceImagesFromArchive('build') }
                 sh "npx cypress run -P test"
             }
-            post { always { script { processTestResults('build') } } }
+            // post { always { script { processTestResults('build') } } }
         }
     }
 }
