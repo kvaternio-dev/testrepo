@@ -6,5 +6,6 @@ context('Test', () => {
         cy.visit("192.168.0.14");
         cy.log("doing something");
         cy.matchImageSnapshot();
+        cy.get("h1").matchImageSnapshot("headerimg");
     })
 })
