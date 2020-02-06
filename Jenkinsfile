@@ -14,7 +14,7 @@ def getReferenceImagesFromArchive = { id ->
     sh "mv snapshots-build/snapshots test/cypress/"
     echo "remove snapshot dir"
     sh "ls"
-    sh "rm -rf snaphots-${id}"
+    sh "rm -rf snapshots-${id}"
     sh "ls"
 }
 
