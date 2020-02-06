@@ -3,6 +3,8 @@ def processTestResults = { id ->
     archiveArtifacts "videos-${id}/**"
     sh "mv test/cypress/snapshots snapshots-${id}"
     archiveArtifacts "snapshots-${id}/**"
+    sh "rm -rf snapshots-${id}"
+    sh "rm -rf videos-${id}"
 }
 
 def getReferenceImagesFromArchive = { id ->
