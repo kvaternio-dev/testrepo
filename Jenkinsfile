@@ -5,7 +5,12 @@ def processTestResults = { id ->
     archiveArtifacts "snapshots-${id}/**"
 }
 
-def snapshotsUrl = "http://192.168.0.14:8080/job/CypressPipeline/lastSuccessfulBuild/artifact/snapshots-build/"
+def getReferenceImages = { id ->
+    step ([$class: 'CopyArtifact',
+    projectName: 'CypressPipeline',
+    filter: 'snapshots-build/snapshots/**',
+    target: 'copyTarget4']);
+}
 
 pipeline {
     agent any
@@ -15,37 +20,8 @@ pipeline {
                 echo 'Building..'
                 echo "${env.JENKINS_URL}"
                 sh "npm install"
-                script{
-                    step ([$class: 'CopyArtifact',
-                    projectName: 'CypressPipeline',
-                    filter: 'snapshots/**',
-                    target: 'copyTarget5']);
-                }
-                script{
-                    step ([$class: 'CopyArtifact',
-                    projectName: 'CypressPipeline',
-                    filter: 'snapshots-build/snapshots/**',
-                    target: 'copyTarget4']);
-                }
-                script{
-                    step ([$class: 'CopyArtifact',
-                    projectName: 'CypressPipeline',
-                    filter: 'snapshots-build/**',
-                    target: 'copyTarget1']);
-                }
-                script{
-                    step ([$class: 'CopyArtifact',
-                    projectName: 'CypressPipeline',
-                    filter: 'snapshots-build/*.*',
-                    target: 'copyTarget2']);
-                }
-                script{
-                    step ([$class: 'CopyArtifact',
-                    projectName: 'CypressPipeline',
-                    filter: 'snapshots-build/*.png',
-                    target: 'copyTarget3']);
-                }
-                sh "wget ${snapshotsUrl} test/cypress/temp || true"
+                script { getReferenceImages('build') }
+                sh "mv copyTarget4/snapshots-build/snapshots test/cypress/"
                 sh "npx cypress run -P test"
             }
             post { always { script { processTestResults('build') } } }
