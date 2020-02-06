@@ -8,6 +8,7 @@ def processTestResults = { id ->
 def getReferenceImagesFromArchive = { id ->
     step ([$class: 'CopyArtifact',
     projectName: 'CypressPipeline',
+    selector: specific('34'),
     filter: 'snapshots-build/snapshots/**',
     target: '.']);
     sh "mv snapshots-build/snapshots test/cypress/"
