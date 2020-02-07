@@ -11,13 +11,9 @@ def getReferenceImagesFromArchive = { id ->
     step ([$class: 'CopyArtifact',
         projectName: 'CypressPipeline',
         selector: specific('34'),
-        filter: 'snapshots-build/snapshots/**',
-        target: '.']);
-    sh "mv snapshots-build/snapshots test/cypress/"
-    echo "remove snapshot dir"
-    sh "ls"
+        filter: 'snapshots-${id}/snapshots/**']);
+    sh "mv snapshots-${id}/snapshots test/cypress/"
     sh "rm -rf snapshots-${id}"
-    sh "ls"
 }
 
 pipeline {
