@@ -23,6 +23,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 echo "${env.JENKINS_URL}"
+                sh "wget http://example.com/index.html"
                 sh "npm install"
                 script { getReferenceImagesFromArchive('build') }
                 sh "npx cypress run -P test"
